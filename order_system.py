@@ -20,6 +20,7 @@ def place_order(menu):
     # Set up order list. Order list will store a list of dictionaries for
     # menu item name, item price, and quantity ordered
     order = []
+    order_total = 0
 
     # Get the menu items mapped to the menu numbers
     menu_items = get_menu_items_dict(menu)
@@ -62,35 +63,38 @@ def place_order(menu):
 
         # TODO: Ask the customer if they would like to order anything else
         # TODO: Let the customer know if they should type 'n' or 'N' to quit
-        input("Would you like to order anything else? (y/n): ")
-
-
         # TODO: Write a conditional statement that checks the user's input
         # TODO: The conditional statement should check for 'n' or 'N'
         user_input = input("Would you like to order anything else? (y/n): ")
         if user_input.lower() == 'n':
+            print("Thank you for your order!")
+            order_total=0
+            for item in order:
+                item_total = item["Price"] * item["Quantity"]
+                order_total += item_total
+            order_total = round (order_total, 2)
+            print("Thank you for your order!")
+            order_total = sum([round(item["Price"], 2) for item in order])
             break
         elif user_input.lower() == 'y':
             continue
         else:
             print("Invalid input. Please type 'y' or 'n'.")
+            continue
             # TODO: Write a print statement that thanks the customer for their order
-            print("Thank you for your order!")
 
             # TODO: Use list comprehension to create a list called prices_list,
             # TODO: which contains the total prices for each item in the order list:
             # TODO: The total price for each item should multiply the price by quantity
-            for item in order:
-                item_total = item["Price"] * item["Quantity"]
-                order_total += item_total
+
 
             # TODO: Create an order_total from the prices list using sum()
             # TODO: Round the prices to 2 decimal places.
-            order_total = sum([round(item["Price"], 2) for item in order])
+            
 
             # TODO: Exit the ordering loop
             # TODO: Either use a break statement or set the condition to False
-            break
+            
 
 
     # TODO: Return the order list and the order total
